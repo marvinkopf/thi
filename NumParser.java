@@ -1,5 +1,3 @@
-package com.company;
-
 import java.io.FileReader;
 import java.util.LinkedList;
 import java.util.Stack;
