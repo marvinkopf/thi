@@ -125,6 +125,22 @@ class NumParser{
         return true;
     }//readInput
 
+      //-------------------------------------------------------------------------
+  // Methode, die testet, ob das Ende der Eingabe erreicht ist
+  // (pointer == maxPointer)
+  //------------------------------------------------------------------------- 
+
+  static boolean inputEmpty(){
+    if (pointer==maxPointer){
+      ausgabe("Eingabe leer!",0);
+      return true;
+    }else{
+      syntaxError(pointer+1,"Eingabe bei Ende des Parserdurchlaufs nicht leer");
+      return false;
+    }
+  }//inputEmpty
+
+
     static char[] input;
     public static void main(String args[]){
         char[] digitMatches = {'1','2','3','4','5','6','7','8','9','0'};
@@ -208,10 +224,12 @@ class NumParser{
         digit.addRule(t -> true, t -> syntaxError(pointer+1, String.valueOf(input[pointer])));
         // Digit end
 
-        if(expression.call(0))
-            System.out.println("Eingabe korrekt");
-        else
-            System.out.println("Eingabe nicht korrekt");
+    // Einlesen der Datei und Aufruf des Parsers    
+    if (readInput("testdatei.txt"))
+      if (expression.call(0)&& inputEmpty())
+        System.out.println("Korrekter Ausdruck");
+      else
+        System.out.println("Fehler im Ausdruck"); 
 
     }//main
     // Ende Methoden
